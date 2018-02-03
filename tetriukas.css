@@ -1,0 +1,66 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #aaa;
+    text-align: center;
+}
+
+.laikiklis {
+    height: 100vh;
+    width: 80%;
+    min-width: 400px;
+    margin: 0 auto;
+    position: absolute;
+}
+
+#pradek {
+    position: relative;
+    top: 50%;
+    left: 10%;
+    transform: translate(-10%, -50%);
+    text-align: center;
+    cursor: pointer;
+}
+
+table, tr, td {
+    border-collapse: collapse;
+}
+
+table {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    border: 3px solid grey;
+    box-shadow: 2px, 2px, 2px, grey;
+}
+
+td {
+    width: 30px;
+    height: 30px;
+}
+
+.guli, .juda {
+    -webkit-box-shadow: -1px -1px 0px 0px rgba(0,0,0,0.2);
+    -moz-box-shadow: -1px -1px 0px 0px rgba(0,0,0,0.2);
+    box-shadow: -1px -1px 0px 0px rgba(0,0,0,0.2);
+}
+
+.sp2 {
+    background-color: #DAA520; /*tipo geltonas*/
+}
+
+.sp1 {
+    background-color: #483D8B; /*tipo mėlynas*/
+}
+
+.sp3 {
+    background-color: #F08080; /*tipo raudonas*/
+}
+
+.sp4 {
+    background-color: #3CB371; /*tipo žalias*/
+}
