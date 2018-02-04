@@ -32,6 +32,8 @@ const kalades = [
     [0, 1, 11, 12],
 ];
 
+
+
 function lentele() {
     let lentele = $("<table>");
     lentele.attr("id", "lentele");
@@ -48,6 +50,22 @@ function lentele() {
         lentele.append(eilute);
     };
     lentele.appendTo(".laikiklis");
+    //
+    // let pultas = $("<div>");
+    // pultas.attr("id", "pultelis");
+    // let kairMygt = $("<button>")
+    // kairMygt.appendTo("#pultelis");
+    // kairMygt.attr("id", "kairMygt");
+    // let zemMygt = $("<button>")
+    // zemMygt.attr("id", "zemMygt");
+    // zemMygt.appendTo("#pultelis");
+    // let aukstMygt = $("<button>")
+    // aukstMygt.attr("id", "aukstMygt");
+    // aukstMygt.appendTo("#pultelis");
+    // let desMygt = $("<button>")
+    // desMygt.attr("id", "desMygt");
+    // desMygt.appendTo("#pultelis");
+
 }
 
 function gautiKalade() {
@@ -377,5 +395,24 @@ function pabaiga() {
 
 
 $(document).ready(function(){
+
+    let fonas = $("<table>");
+    fonas.attr("id", "fonas");
+    let fonoEilute, fonoLangelis;
+    for (let j = 0; j < eil; j++) {
+        console.log("pridedam eilute")
+        fonoEilute = $("<tr>");
+        for (let i = 0; i < stulp; i++) {
+            fonoLangelis = $("<td>");
+            let spalvosNr = Math.floor(Math.random()*5);
+            let klase = "sp" + spalvosNr;
+            fonoLangelis.addClass(klase);
+            fonoEilute.append(fonoLangelis);
+        }
+        fonas.append(fonoEilute);
+    };
+    fonas.appendTo(".laikiklis");
+
+
     $("#pradek").click(zaidimas);
 });

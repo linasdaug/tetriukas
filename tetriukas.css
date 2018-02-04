@@ -5,12 +5,12 @@
 body {
     background-color: #aaa;
     text-align: center;
-    font-family: "Helvetica" sans-serif;
+    font-family: "Share Tech Mono";
 }
 
 .laikiklis {
     height: 100vh;
-    width: 80%;
+    width: 90%;
     min-width: 400px;
     margin: 0 auto;
     position: absolute;
@@ -19,11 +19,33 @@ body {
 #pradek {
     position: relative;
     top: 50%;
-    left: 10%;
+    left: 48%;
+    width: 200px;
     transform: translate(-10%, -50%);
     text-align: center;
     cursor: pointer;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 20px;
 }
+
+#fonas {
+    position: absolute;
+    border: none;
+    min-width: none;
+}
+
+#pradek h1 {
+    padding: 15px;
+    border: 2px solid grey;
+    font-family: "Share Tech Mono";
+}
+
+#pradek h2 {
+    font-family: "Share Tech Mono";
+    font-size: 35px;
+}
+
 
 table, tr, td {
     border-collapse: collapse;
@@ -32,10 +54,13 @@ table, tr, td {
 table {
     position: relative;
     top: 50%;
-    left: 50%;
+    left: 55%;
     transform: translate(-50%, -50%);
     text-align: center;
-    border: 3px solid grey;
+    border-top: 3px solid #DAA520;;
+    border-right: 3px solid #483D8B;
+    border-bottom: 3px solid #F08080;
+    border-left: 3px solid #3CB371;
     box-shadow: 2px, 2px, 2px, grey;
 }
 
@@ -75,7 +100,7 @@ td {
 .pabaiga {
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 55%;
     width: 300px;
     transform: translate(-50%, -50%);
     text-align: center;
