@@ -32,28 +32,16 @@ const kalades = [
     [0, 1, 11, 12],
 ];
 
-
-let matrica = [];
-for (let i = 0; i < eil; i++) {
-    matrica[i] = [];
-    for (let j = 0; j < stulp; j++) {
-        matrica[i][j] = 0;
-    }
-}
-
-
 function lentele() {
-    let lentele = $("<table>")
-    let eilute, langelis
+    let lentele = $("<table>");
+    lentele.attr("id", "lentele");
+    let eilute, langelis;
     let indeksas = 0;
     for (let j = 0; j < eil; j++) {
         eilute = $("<tr>");
         for (let i = 0; i < stulp; i++) {
             langelis = $("<td>");
             langelis.attr("id", indeksas);
-            if (matrica[j][i]) {
-                langelis.attr("class", "guli");
-            };
             eilute.append(langelis);
             indeksas++;
         }
@@ -64,25 +52,38 @@ function lentele() {
 
 function gautiKalade() {
 
-    let kalNr = Math.floor(Math.random()*7)*4;  /*atsitiktinai parenkama nauja kalade*/
-    let naujaSpalva = Math.ceil(Math.random()*4);   /*atsitiktinai parenkama kalades spalva*/
-    naujaSpalva = "sp" + naujaSpalva;
-    let naujaKalade = [];
-    let pt = 4;            /* pradinis taškas */
+        let kalNr = Math.floor(Math.random()*7)*4;  /*atsitiktinai parenkama nauja kalade*/
+        let naujaSpalva = Math.ceil(Math.random()*4);   /*atsitiktinai parenkama kalades spalva*/
+        naujaSpalva = "sp" + naujaSpalva;
+        let naujaKalade = [];
+        let pt = 4;            /* pradinis taškas */
 
-    for (var i = 0; i < 4; i++) {
-        naujaKalade[i] = kalades[kalNr][i] + pt;
-    };
-    padetiKalade(naujaKalade, naujaSpalva);
+        for (var i = 0; i < 4; i++) {
+            naujaKalade[i] = kalades[kalNr][i] + pt;
+        };
+
+        let prieDugno = false;
+        for (let i = 0; i < 4; i++) {
+            let nid = naujaKalade[i] + stulp;
+            prieDugno = prieDugno || $("#"+nid).hasClass("guli");
+        }
+        padetiKalade(naujaKalade, naujaSpalva);
+
+        if (prieDugno) {
+            pabaiga();
+        }
 }
 
 function padetiKalade(kalade, spalva) {
-    for (let i = 0; i < kalade.length; i++) {
-        let id = kalade[i];
-        $("#"+id).addClass("juda");
-        $("#"+id).addClass(spalva);
-    }
+
+        for (let i = 0; i < kalade.length; i++) {
+            let id = kalade[i];
+            $("#"+id).addClass("juda");
+            $("#"+id).addClass(spalva);
+        }
+        return;
 }
+
 
 function Rodykles() {
 
@@ -90,6 +91,7 @@ function Rodykles() {
   this.desinen = 39;
   this.kairen = 37;
   this.zemyn = 40;
+  this.baigti = 27;
   var paspaudimai = {};
   this.add = function(rodykle, ka_kvieciam) {
     paspaudimai[rodykle] = ka_kvieciam;
@@ -113,8 +115,24 @@ function zaidimas() {
     rodykles.add(rodykles.desinen, desinen);
     rodykles.add(rodykles.kairen, kairen);
     rodykles.add(rodykles.aukstyn, versti);
-    rodykles.add(rodykles.zemyn, leistis);
+    rodykles.add(rodykles.zemyn, leistis);  /*po paspaudimo leidziames po 4 eilutes zemyn*/
+    rodykles.add(rodykles.baigti, pabaiga)
 
+    let stresas = 1500;
+    let akimirkos = 0;
+    let perioduSk = 20;
+    let spaudimas = setInterval(function(){
+        if (akimirkos / perioduSk == 1) {          /*kas n periodų pagreitėja*/
+            stresas = Math.round(stresas*0.8);
+            akimirkos = 1;
+            perioduSk = Math.round(perioduSk / 0.8);
+        };
+        if ($("#lentele").hasClass("baigta")) {
+            clearInterval(spaudimas);
+        } else {
+        spausti();
+        akimirkos++;
+    }}, stresas);
 }
 
 function desinen () {
@@ -230,7 +248,7 @@ function versti () {
 function leistis() {
         prieDugno = false;
         let sp;
-        let z = 4;  /*po paspaudimo leisimes 4 eilutes zemyn*/
+        let z = 4;   /*po paspaudimo leidziames 4 eilutes zemyn*/
 
     do {
         let judaX = [];
@@ -267,24 +285,55 @@ function leistis() {
     while (!prieDugno && z > 0);
 }
 
+function spausti() {
+        prieDugno = false;
+        let sp;
+        let judaX = [];
+        let judaY = [];
+        prieDugno = false;
+
+        for (i = 0; i < 4; i++) {
+            let j = $(".juda").attr("id");
+            $("#"+j).removeClass("juda");
+            let s = $("#"+j).attr("class");
+            $("#"+j).removeClass(s);
+            j = parseInt(j);
+            judaX.push(j);
+            if (i == 0) {sp = s};
+        }
+        judaY = judaX;
+
+        for (let i = 0; i < 4; i++) {
+            if (Math.ceil(judaY[i]) / stulp >= eil - 1) {prieDugno = true;}
+            let nid = judaY[i] + stulp;
+            prieDugno = prieDugno || $("#"+nid).hasClass("guli");
+        }
+
+        if (!prieDugno) {
+            for (let i = 0; i < judaY.length; i++) {
+                judaY[i] = judaY[i]+stulp;
+            };
+            padetiKalade(judaY, sp);
+        } else {
+            paguldyti(judaY, sp);
+        };
+}
+
 function paguldyti (kalade, spalva) {
-    console.log("guldom");
-    console.log(kalade);
     for (i = 0; i < 4; i++) {
         $("#"+kalade[i]).removeClass();
         $("#"+kalade[i]).addClass("guli");
         $("#"+kalade[i]).addClass(spalva);
         let gulintiEilute = Math.floor(kalade[i] / stulp);
         let eilutePilna = true;
-        console.log("tikrinam eilute: " + gulintiEilute);
         for (let k = 0; k < stulp; k++) {
             let elem = gulintiEilute * stulp + k;
             eilutePilna = eilutePilna && $("#"+elem).hasClass("guli");
         };
         if (eilutePilna) {
-            console.log("uzskaitom");
             for (let k = gulintiEilute * stulp; k < gulintiEilute * (stulp + 1) ; k++) {
                 $('#'+k).removeClass();
+                // $('#'+k).addClass("isnyksta");
             }
             let l = 0;
             let m = gulintiEilute * stulp - 1;
@@ -302,7 +351,7 @@ function paguldyti (kalade, spalva) {
                 };
                 m--;
             }
-            console.log(o);
+
             for (let i = 0, j = o.length; i < j; i++) {
                 let naujasid = o[i].id + stulp;
                 let s = o[i].sp;
@@ -314,8 +363,17 @@ function paguldyti (kalade, spalva) {
     gautiKalade();
 }
 
-
-
+function pabaiga() {
+    $("#lentele").addClass("baigta");
+    let pabaigosLentele = $("<div>");
+    pabaigosLentele.addClass("pabaiga");
+    pabaigosLentele.append("<h3>Pabaiga</h3>");
+    pabaigosLentele.append("<a onclick='zaidimas()'>iš naujo</a>");
+    pabaigosLentele.appendTo(".laikiklis");
+    $("td").removeClass("juda");
+    $("td").removeClass("guli");
+    document.onkeydown = null;
+}
 
 
 $(document).ready(function(){
