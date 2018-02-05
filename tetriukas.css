@@ -16,23 +16,21 @@ body {
     position: absolute;
 }
 
-#pradek {
-    position: relative;
+.pabaiga, #pradek {
+    position: absolute;
     top: 50%;
-    left: 48%;
-    width: 200px;
-    transform: translate(-10%, -50%);
+    left: 50%;
+    width: 300px;
+    transform: translate(-50%, -50%);
     text-align: center;
-    cursor: pointer;
-    z-index: 1;
     background-color: rgba(255, 255, 255, 0.5);
-    padding: 20px;
+    z-index: 1;
+    padding: 30px;
+    cursor: pointer;
 }
 
-#fonas {
-    position: absolute;
-    border: none;
-    min-width: none;
+.pabaiga {
+    left: 55%;
 }
 
 #pradek h1 {
@@ -62,6 +60,7 @@ table {
     border-bottom: 3px solid #F08080;
     border-left: 3px solid #3CB371;
     box-shadow: 2px, 2px, 2px, grey;
+    min-width: 300px;
 }
 
 td {
@@ -95,18 +94,6 @@ td {
 
 .sp4 {
     background-color: #3CB371; /*tipo žalias*/
-}
-
-.pabaiga {
-    position: absolute;
-    top: 50%;
-    left: 55%;
-    width: 300px;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.5);
-    z-index: 1;
-    padding: 30px;
 }
 
 .pabaiga h3 {

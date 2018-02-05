@@ -50,22 +50,6 @@ function lentele() {
         lentele.append(eilute);
     };
     lentele.appendTo(".laikiklis");
-    //
-    // let pultas = $("<div>");
-    // pultas.attr("id", "pultelis");
-    // let kairMygt = $("<button>")
-    // kairMygt.appendTo("#pultelis");
-    // kairMygt.attr("id", "kairMygt");
-    // let zemMygt = $("<button>")
-    // zemMygt.attr("id", "zemMygt");
-    // zemMygt.appendTo("#pultelis");
-    // let aukstMygt = $("<button>")
-    // aukstMygt.attr("id", "aukstMygt");
-    // aukstMygt.appendTo("#pultelis");
-    // let desMygt = $("<button>")
-    // desMygt.attr("id", "desMygt");
-    // desMygt.appendTo("#pultelis");
-
 }
 
 function gautiKalade() {
@@ -136,7 +120,7 @@ function zaidimas() {
     rodykles.add(rodykles.zemyn, leistis);  /*po paspaudimo leidziames po 4 eilutes zemyn*/
     rodykles.add(rodykles.baigti, pabaiga)
 
-    let stresas = 1500;
+    let stresas = 1200;
     let akimirkos = 0;
     let perioduSk = 20;
     let spaudimas = setInterval(function(){
@@ -183,7 +167,6 @@ function desinen () {
         else {
             judaY = judaX;
         };
-
     padetiKalade(judaY, sp);
 }
 
@@ -338,46 +321,48 @@ function spausti() {
 }
 
 function paguldyti (kalade, spalva) {
-    for (i = 0; i < 4; i++) {
+    for (let i = 0; i < 4; i++) {
         $("#"+kalade[i]).removeClass();
         $("#"+kalade[i]).addClass("guli");
         $("#"+kalade[i]).addClass(spalva);
-        let gulintiEilute = Math.floor(kalade[i] / stulp);
-        let eilutePilna = true;
-        for (let k = 0; k < stulp; k++) {
-            let elem = gulintiEilute * stulp + k;
-            eilutePilna = eilutePilna && $("#"+elem).hasClass("guli");
-        };
-        if (eilutePilna) {
-            for (let k = gulintiEilute * stulp; k < gulintiEilute * (stulp + 1) ; k++) {
-                $('#'+k).removeClass();
-                // $('#'+k).addClass("isnyksta");
-            }
-            let l = 0;
-            let m = gulintiEilute * stulp - 1;
-            let o = [];
-            while (l <= stulp) {
-                if ($("#"+m).hasClass("guli")) {
-                    $("#"+m).removeClass("guli");
-                    let s = $("#"+m).attr("class");
-                    $("#"+m).removeClass(s);
-                    let p = {id:m, sp:s};
-                    o.push(p);
-                    l = 0;
-                } else {
-                    l++
-                };
-                m--;
-            }
+    }
 
+    let zemiausiaEilute = Math.floor(kalade[3] / stulp);
+    let auksciausiaEilute = Math.floor(kalade[0] / stulp);
+    for (let e = auksciausiaEilute; e <= zemiausiaEilute; e++) {
+        let pilnaEilute = true;
+        for (let i = 0; i < stulp; i++) {
+            let eid = e * stulp + i;
+            pilnaEilute = pilnaEilute && $("#"+eid).hasClass("guli");
+        }
+        if (pilnaEilute) {
+            for (i = 0; i < stulp; i++) {     /* istrinam eilute */
+                eid = e * stulp + i;
+                $("#"+eid).removeClass("guli");
+                sp = $("#"+eid).attr("class");
+                $("#"+eid).removeClass(sp);
+            }
+            let o = [];                      /* sukuriam visu aukstesniu pilnu langeliu masyva, juos isvalom*/
+            let k = 0;
+            for (let langnum = e * stulp - 1; langnum > 1; langnum--) {
+                if ($("#"+langnum).hasClass("guli")) {
+                    $("#"+langnum).removeClass("guli");
+                    s = $("#"+langnum).attr("class");
+                    $("#"+langnum).removeClass(s);
+                    o[k] = {id:langnum, sp:s};
+                    k++;
+                }
+            }
+                            // visus aukstesnius pilnus langelius pastumiam zemyn
             for (let i = 0, j = o.length; i < j; i++) {
                 let naujasid = o[i].id + stulp;
                 let s = o[i].sp;
                 $("#"+naujasid).addClass("guli");
                 $("#"+naujasid).addClass(s);
             }
-        };
+        }
     };
+
     gautiKalade();
 }
 
@@ -386,7 +371,7 @@ function pabaiga() {
     let pabaigosLentele = $("<div>");
     pabaigosLentele.addClass("pabaiga");
     pabaigosLentele.append("<h3>Pabaiga</h3>");
-    pabaigosLentele.append("<a onclick='zaidimas()'>iš naujo</a>");
+    pabaigosLentele.append("<a onclick='zaidimas()'>pakartot!</a>");
     pabaigosLentele.appendTo(".laikiklis");
     $("td").removeClass("juda");
     $("td").removeClass("guli");
@@ -412,6 +397,14 @@ $(document).ready(function(){
         fonas.append(fonoEilute);
     };
     fonas.appendTo(".laikiklis");
+    let pradziosLentele = $("<div>");
+    pradziosLentele.attr("id", "pradek");
+    pradziosLentele.append("<h3>mini</h3>");
+    pradziosLentele.append("<h2>TETRIS</h2>");
+    pradziosLentele.append("<h1>spausk!</h1>");
+    pradziosLentele.appendTo(fonas);
+
+
 
 
     $("#pradek").click(zaidimas);
