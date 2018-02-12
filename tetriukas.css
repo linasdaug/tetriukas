@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    transition: all 0.1s;
 }
 
 body {
@@ -28,6 +29,60 @@ body {
     padding: 30px;
     cursor: pointer;
 }
+
+.rodyklesPelei {
+    position: absolute;
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.rod {
+    position: absolute;
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.rodV {
+    top: 0;
+    left: 20%;
+    height: 50%;
+    width: 60%;
+    padding-top: 70%;
+}
+
+.rodP {
+    top: 50%;
+    left: 20%;
+    height: 20%;
+    width: 60%;
+    padding-top: 12%;
+}
+
+.rodA {
+    top: 70%;
+    left: 20%;
+    height: 30%;
+    width: 60%;
+    padding-top: 5%;
+}
+
+.rodK {
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 20%;
+    padding: 100% 0 20% 0;
+}
+
+.rodD {
+    top: 0;
+    left: 80%;
+    height: 100%;
+    width: 20%;
+    padding: 100% 0 20% 0;
+}
+
 
 .pabaiga {
     left: 55%;

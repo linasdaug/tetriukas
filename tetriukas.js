@@ -33,7 +33,6 @@ const kalades = [
 ];
 
 
-
 function lentele() {
     let lentele = $("<table>");
     lentele.attr("id", "lentele");
@@ -49,7 +48,32 @@ function lentele() {
         }
         lentele.append(eilute);
     };
-    lentele.appendTo(".laikiklis");
+    lentele.appendTo("#laikiklis");
+
+    let rodyklesPelei = $('<div class="rodyklesPelei"></div>');
+    rodyklesPelei.width(stulp * 30);
+    rodyklesPelei.height((eil) * 30);
+    let rodV = $('<div class="rod rodV" onclick="versti()"></div>');
+    rodV.append("<i class='fas fa-angle-double-up fa-3x'></i>");
+    let rodK = $('<div class="rod rodK" onclick="kairen()"></div>');
+    rodK.append("<i class='fas fa-angle-double-left fa-3x'></i>");
+    let rodP = $('<div class="rod rodP" onclick="einaNeina()"></div>');
+    rodP.attr("id", "pauzestart");
+    rodP.append("<i class='fas fa-pause fa-2x'></i>");
+    let rodD = $('<div class="rod rodD" onclick="desinen()"></div>');
+    rodD.append("<i class='fas fa-angle-double-right fa-3x'></i>");
+    let rodA = $('<div class="rod rodA" onclick="leistis()"></div>');
+    rodA.append("<i class='fas fa-angle-double-down fa-3x'></i>");
+
+    rodV.appendTo(rodyklesPelei);
+    rodK.appendTo(rodyklesPelei);
+    rodP.appendTo(rodyklesPelei);
+    rodD.appendTo(rodyklesPelei);
+    rodA.appendTo(rodyklesPelei);
+
+    rodyklesPelei.appendTo("#laikiklis");
+
+
 }
 
 function gautiKalade() {
@@ -94,6 +118,7 @@ function Rodykles() {
   this.kairen = 37;
   this.zemyn = 40;
   this.baigti = 27;
+  this.pauze = 32;
   var paspaudimai = {};
   this.add = function(rodykle, ka_kvieciam) {
     paspaudimai[rodykle] = ka_kvieciam;
@@ -118,23 +143,42 @@ function zaidimas() {
     rodykles.add(rodykles.kairen, kairen);
     rodykles.add(rodykles.aukstyn, versti);
     rodykles.add(rodykles.zemyn, leistis);  /*po paspaudimo leidziames po 4 eilutes zemyn*/
-    rodykles.add(rodykles.baigti, pabaiga)
+    rodykles.add(rodykles.baigti, pabaiga);
+    rodykles.add(rodykles.pauze, einaNeina);
 
+    einaNeina();
+}
+
+
+let spaudimas;
+
+function einaNeina() {
+    console.log("eina neina");
     let stresas = 1200;
     let akimirkos = 0;
     let perioduSk = 20;
-    let spaudimas = setInterval(function(){
-        if (akimirkos / perioduSk == 1) {          /*kas n periodų pagreitėja*/
-            stresas = Math.round(stresas*0.8);
-            akimirkos = 1;
-            perioduSk = Math.round(perioduSk / 0.8);
-        };
-        if ($("#lentele").hasClass("baigta")) {
-            clearInterval(spaudimas);
-        } else {
-        spausti();
-        akimirkos++;
-    }}, stresas);
+
+    if (!spaudimas) {
+        spaudimas = setInterval(function(){
+            if (akimirkos / perioduSk == 1) {          /*kas perioduSk periodų pagreitėja*/
+                stresas = Math.round(stresas*0.7);
+                akimirkos = 1;
+                perioduSk = Math.round(perioduSk / 0.7);
+            };
+            if ($("#lentele").hasClass("baigta")) {
+                clearInterval(spaudimas);
+            } else {
+                $('#pauzestart').empty();
+                $('#pauzestart').append("<i class='fas fa-pause fa-2x'></i>");
+                spausti();
+                akimirkos++;
+        }}, stresas);
+    } else {
+        clearInterval(spaudimas);
+        $('#pauzestart').empty();
+        $('#pauzestart').append("<i class='fas fa-play fa-2x'></i>");
+        spaudimas = null;
+    }
 }
 
 function desinen () {
@@ -319,6 +363,8 @@ function spausti() {
             paguldyti(judaY, sp);
         };
 }
+
+
 
 function paguldyti (kalade, spalva) {
     for (let i = 0; i < 4; i++) {
