@@ -1,12 +1,11 @@
 * {
     box-sizing: border-box;
-    transition: all 0.1s;
 }
 
 body {
     background-color: #aaa;
     text-align: center;
-    font-family: "Share Tech Mono";
+    font-family: "Bungee";
 }
 
 .laikiklis {
@@ -17,7 +16,7 @@ body {
     position: absolute;
 }
 
-.pabaiga, #pradek {
+.pabaiga, #pradinis {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -28,6 +27,22 @@ body {
     z-index: 1;
     padding: 30px;
     cursor: pointer;
+}
+
+
+.pabaiga {
+    left: 55%;
+}
+
+#pradinis {
+    padding: 15px;
+    border: 2px solid grey;
+    font-family: "Bungee";
+}
+
+#pradinis h1 {
+    font-family: "Bungee";
+    font-size: 35px;
 }
 
 .rodyklesPelei {
@@ -84,21 +99,6 @@ body {
 }
 
 
-.pabaiga {
-    left: 55%;
-}
-
-#pradek h1 {
-    padding: 15px;
-    border: 2px solid grey;
-    font-family: "Share Tech Mono";
-}
-
-#pradek h2 {
-    font-family: "Share Tech Mono";
-    font-size: 35px;
-}
-
 
 table, tr, td {
     border-collapse: collapse;
@@ -150,6 +150,18 @@ td {
 .sp4 {
     background-color: #3CB371; /*tipo žalias*/
 }
+
+#rezultatas {
+    position: absolute;
+    top: 0;
+    left: 60%;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 16px;
+    font-style: italic;
+    margin: 0;
+    padding: 0;
+}
+
 
 .pabaiga h3 {
     font-weight: bold;
