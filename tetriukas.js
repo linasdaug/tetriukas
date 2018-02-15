@@ -153,7 +153,7 @@ function zaidimas() {
     lentele();
     gautiKalade();
 
-    $(document).keypress(function(e) {
+    $(document).keydown(function(e) {
         let keycode;
         if (e.keyCode) {keycode = e.keyCode} else {keycode = e.which};
         if (keycode == '37') {kairenDesinen(-1)}
