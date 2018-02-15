@@ -55,12 +55,12 @@ function lentele() {
     rodyklesPelei.height((eil) * 30);
     let rodV = $('<div class="rod rodV" onclick="versti()"></div>');
     rodV.append("<i class='fas fa-angle-double-up fa-3x'></i>");
-    let rodK = $('<div class="rod rodK" onclick="kairen()"></div>');
+    let rodK = $('<div class="rod rodK" onclick="kairenDesinen(-1)"></div>');
     rodK.append("<i class='fas fa-angle-double-left fa-3x'></i>");
     let rodP = $('<div class="rod rodP" onclick="einaNeina()"></div>');
     rodP.attr("id", "pauzestart");
     rodP.append("<i class='fas fa-pause fa-2x'></i>");
-    let rodD = $('<div class="rod rodD" onclick="desinen()"></div>');
+    let rodD = $('<div class="rod rodD" onclick="kairenDesinen(1)"></div>');
     rodD.append("<i class='fas fa-angle-double-right fa-3x'></i>");
     let rodA = $('<div class="rod rodA" onclick="leistis()"></div>');
     rodA.append("<i class='fas fa-angle-double-down fa-3x'></i>");
