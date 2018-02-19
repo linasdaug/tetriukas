@@ -221,9 +221,15 @@ function kairenDesinen (x) {
             prieKrasto = true;
             break;
         }
+
+        if (((x == 1) && $("#"+(judaX[i]+1)).hasClass("guli")) || ((x == -1) && $("#"+(judaX[i]-1)).hasClass("guli"))) {
+            prieKrasto = true;
+            break;
+        }
+
     }
 
-    if (!prieKrasto) {                                  /* jeigu ne prie krasto, juda kairen (-1) arba desinen (+1) */
+    if (!prieKrasto) {          /* jeigu ne prie krasto, juda kairen (-1) arba desinen (+1) */
         for (let i = 0; i < judaX.length; i++) {
             judaY[i] = judaX[i]+x;
         }}
