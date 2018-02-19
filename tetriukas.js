@@ -148,27 +148,29 @@ function padetiKalade(kalade, spalva) {
 // }
 
 
+let spaudimas;
+
 function zaidimas() {
+    clearInterval(spaudimas);
     $(".laikiklis").empty();
     lentele();
     gautiKalade();
-
-    $(document).keydown(function(e) {
-        let keycode;
-        if (e.keyCode) {keycode = e.keyCode} else {keycode = e.which};
-        if (keycode == '37') {kairenDesinen(-1)}
-        if (keycode == '38') {versti()}
-        if (keycode == '39') {kairenDesinen(1)}
-        if (keycode == '40') {leistis()}
-        if (keycode == '27') {pabaiga()}
-        if (keycode == '32') {einaNeina()}
-    });
-
+    //
+    // $(document).keydown(function(e) {
+    //     let keycode;
+    //     if (e.keyCode) {keycode = e.keyCode} else {keycode = e.which};
+    //     if (keycode == '37') {kairenDesinen(-1)}
+    //     if (keycode == '38') {versti()}
+    //     if (keycode == '39') {kairenDesinen(1)}
+    //     if (keycode == '40') {leistis()}
+    //     if (keycode == '27') {pabaiga()}
+    //     if (keycode == '32') {einaNeina()}
+    // });
+    //
     einaNeina();
 }
 
 
-let spaudimas;
 
 function einaNeina() {
     let stresas = 1200;
@@ -230,42 +232,9 @@ function kairenDesinen (x) {
         };
     padetiKalade(judaY, sp);
 }
-//
-// function kairen () {
-//     let judaX = [];
-//     let judaY = [];
-//     let prieKrasto = false;
-//     let sp;
-//
-//     for (i = 0; i < 4; i++) {
-//         let j = $(".juda").attr("id");
-//         $("#"+j).removeClass("juda");
-//         let s = $("#"+j).attr("class");
-//         $("#"+j).removeClass(s);
-//         j = parseInt(j);
-//         judaX.push(j);
-//         if (i == 0) {sp = s};
-//     }
-//
-//     for (let i = 0; i < judaX.length; i++) {
-//         if (judaX[i] % stulp == 0) {
-//             prieKrasto = true;
-//             break;
-//         }
-//     }
-//
-//     if (!prieKrasto) {
-//         for (let i = 0; i < judaX.length; i++) {
-//             judaY[i] = judaX[i]-1;
-//         }}
-//         else {
-//             judaY = judaX;
-//         };
-//
-//     padetiKalade(judaY, sp);
-// }
 
 function versti () {
+    console.log("versti");
     let judaX = [];
     let judaY = [];
     let sp;
@@ -436,6 +405,10 @@ function paguldyti (kalade, spalva) {
 }
 
 function pabaiga() {
+    clearInterval(spaudimas);
+
+    $(".rodyklesPelei").empty();
+
     $("#lentele").addClass("baigta");
     let pabaigosLentele = $("<div>");
     pabaigosLentele.addClass("pabaiga");
@@ -485,7 +458,18 @@ $(document).ready(function(){
         pradziosLentele.append("<p>Tarpas - pauzė;</p>");
         pradziosLentele.append("<h2 id='pradek2'>spausk!</h2>");
         $("#pradek2").click(zaidimas);
-    })
+    });
+
+    $(document).keydown(function(e) {
+        let keycode;
+        if (e.keyCode) {keycode = e.keyCode} else {keycode = e.which};
+        if (keycode == '37') {kairenDesinen(-1)}
+        if (keycode == '38') {versti()}
+        if (keycode == '39') {kairenDesinen(1)}
+        if (keycode == '40') {leistis()}
+        if (keycode == '27') {pabaiga()}
+        if (keycode == '32') {einaNeina()}
+    });
 
 
 });
