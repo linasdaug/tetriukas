@@ -155,19 +155,10 @@ function zaidimas() {
     $(".laikiklis").empty();
     lentele();
     gautiKalade();
-    //
-    // $(document).keydown(function(e) {
-    //     let keycode;
-    //     if (e.keyCode) {keycode = e.keyCode} else {keycode = e.which};
-    //     if (keycode == '37') {kairenDesinen(-1)}
-    //     if (keycode == '38') {versti()}
-    //     if (keycode == '39') {kairenDesinen(1)}
-    //     if (keycode == '40') {leistis()}
-    //     if (keycode == '27') {pabaiga()}
-    //     if (keycode == '32') {einaNeina()}
-    // });
-    //
     einaNeina();
+    if (!spaudimas) {
+        einaNeina();
+    }
 }
 
 
